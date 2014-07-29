@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>More Time To Think</title>
+
+    <meta name="author" content="Andrew Miller, objectpartners.com">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/opi.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <style>
+      .highlighted { color: blue; }
+    </style>
+</head>
+
+<body>
+
+<div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+        <section data-state="title">
+            <br />
+            <br />
+            <br />
+            <h2>Fine Grained Security <br /> in Grails Applicaitons</h2>
+            <br />
+            <p>
+                Andrew Miller
+                <br />
+                <a href="mailto:amiller@objectpartners.com">amiller@objectpartners.com</a>
+            </p>
+        </section>
+
+        <section>
+            <img class="fragment" src="images/D-Zverev_Rostov-Velikiy2.jpg" alt="the byrds" />
+        </section>
+
+        <section>
+            <h2 class="fragment">Have you ever seen an old photo of yourself...</h2>
+            <img class="fragment" src="images/the-byrds.jpg" alt="the byrds" />
+            <h3 class="fragment">
+                ...and been embarrassed at<br />
+                the way you looked?
+            </h3>
+        </section>
+
+        <section>
+            <h2>Have you looked at old code you wrote...</h2>
+            <pre class="fragment"><code>
+                                          |
+    PROGRAM MAIN                          |    SUBROUTINE SUB1(X,DUMSUB)
+    INTEGER N, X                          |    INTEGER N, X
+    EXTERNAL SUB1                         |    EXTERNAL DUMSUB
+    COMMON /GLOBALS/ N                    |    COMMON /GLOBALS/ N
+    X = 0                                 |    IF(X .LT. N)THEN
+    PRINT *, 'Enter number of repeats'    |      X = X + 1
+    READ (*,*) N                          |      PRINT *, 'x = ', X
+    CALL SUB1(X,SUB1)                     |      CALL DUMSUB(X,DUMSUB)
+    END                                   |    END IF
+                                          |    END
+                                          |
+            </code></pre>
+            <h3 class="fragment">
+                ...and been embarrassed at<br />
+                how clumsy it looked?
+            </h3>
+        </section>
+
+        <section>
+            <h2>Have you looked at old project plans and budgets...</h2>
+            <br />
+            <br />
+            <h3 class="fragment">
+                ...and been embarrassed at how
+                much money you spent on the things that today are so easy?
+            </h3>
+        </section>
+
+        <section>
+            <h3>The truth is we spent entire project budgets on what, then, was the "hard stuff"...</h3>
+            <br />
+            <ul class="fragment">
+                <li>figuring out how we were gonna organize our source code
+                <li>figuring out dependency management
+                <li>figuring out build automation
+                <li>figuring out how we're gonna save data in a database
+                <li>figuring out test automation
+                <li>...
+            </ul>
+            <div class="fragment">
+                <br />
+                <p>Looking back, it's amazing we had time (or money) left over to work on the important things...</p>
+                <br />
+                <p class="highlighted"><strong>LIKE WHAT THE SOFTWARE WAS <br />
+                SUPPOSED TO ACTUALLY DO!</strong></p>
+            </div>
+        </section>
+
+        <section>
+            <h2> When building a system... </h2>
+            <img class="fragment" src="images/mttt/mttt-0.png" />
+        </section>
+        <section> <img src="images/mttt/mttt-1.png" /> </section>
+        <section> <img src="images/mttt/mttt-2.png" /> </section>
+        <section> <img src="images/mttt/mttt-3.png" /> </section>
+        <section> <img src="images/mttt/mttt-4.png" /> </section>
+        <section> <img src="images/mttt/mttt-5.png" /> </section>
+        <section> <img src="images/mttt/mttt-6.png" /> </section>
+        <section> <img src="images/mttt/mttt-7.png" /> </section>
+
+        <section>
+            <h2>Some things are just "hard"...</h2>
+            <br />
+            <ul>
+                <li class="fragment">Requirements management
+                <li class="fragment">Integrating with other systems
+                <li class="fragment">Asynchronous processing
+                <li class="fragment">Application security
+                <li class="fragment">Batch processing
+                <li class="fragment">Functional testing
+                <li class="fragment">Working with money
+                <li class="fragment">...
+            </ul>
+        </section>
+
+        <section>
+            <h2>Grails solves some hard stuff right out of the box</h2>
+            <br />
+            <ul class="fragment">
+                <li>structuring the vertical slice
+                <li>organizing source code
+                <li>dependency management
+                <li>build automation
+                <li class="fragment">persistence
+                <li class="fragment">schema evolution
+                <li class="fragment">test automation
+            </ul>
+            <ul>
+                <li class="fragment">groovy
+                <li class="fragment">plugins
+                <li class="fragment">...
+            </ul>
+            <br />
+            <br />
+            <br />
+        </section>
+
+        <section>
+            <h2>Some things are just "hard"...</h2>
+            <br />
+            <ul>
+                <li>Requirements management
+                <li>Integrating with other systems
+                <li>Asynchronous processing
+                <li>Application security
+                <li>Batch processing
+                <li>Functional testing
+                <li>Working with money
+                <li>...
+            </ul>
+        </section>
+
+        <section>
+            <h2>Some things are just "hard"...</h2>
+            <br />
+            <ul>
+                <li>Requirements management
+                <li>Integrating with other systems
+                <li>Asynchronous processing
+                <li><h3><strong class="highlighted">Application security</strong></h3>
+                <li>Batch processing
+                <li>Functional testing
+                <li>Working with money
+                <li>...
+            </ul>
+        </section>
+
+        <section>
+            <h2>Application Security</h2>
+            <br />
+            <ol start="0">
+                <li class="fragment">anonymous (no security)
+                <li class="fragment">authentication of multiple clients
+                <li class="fragment">authentication of multiple users
+                <li class="fragment">user authentication AND user authorization
+                <li class="fragment"><span class="highlighted">fine grained</span> user authorization varying across resources
+                <li class="fragment">data security (at the query level)
+            </ol>
+            <br />
+            <br />
+<!--
+            <p class="fragment">This is a complex, multi-dimensional problem.  Cool!  I like complex problems, but
+            they're only fun to solve once.</p>
+            <p class="fragment">So let's look a little deeper...</p>
+-->
+        </section>
+
+        <section>
+            <h2>Users &amp; Roles</h2>
+
+            <ul>
+              <li> Anonymous <span class="fragment">: No security necessary.</span>
+
+              <li class="fragment"> Single User <span class="fragment">: one step beyond "anonymous". Address this
+              situation by using the @Secured annotation (provided by the spring-security-core plugin) to secure
+              controller actions.
+              <pre><code>
+              @Secured(["isFullyAuthenticated()"])
+              </code></pre>
+              </span>
+
+              <li class="fragment"> Multipe Users <span class="fragment">: As soon as you've secured an application you'll discover you
+              can <em>do things</em> with the knowledge of who's loged in.  Things like audit logging are possible (who
+              did what/when.)</span>
+
+              <li class="fragment"> Multipe  Users / Multiple Roles
+            </ul>
+        </section>
+
+        <section>
+            <h2>Users &amp; Roles</h2>
+
+            <ul>
+              <li> Multipe  Users / Multiple Roles: With multiple users you'll
+              find that you want to allow some users to do  somethings and other users to do other things.  This too can
+              be handles with the @Secured annotation
+              <pre><code>
+
+              @Secured(["ROLE_SUPERUSER"])
+              def rmMinusRStar(String pathname) {
+                  ...
+              }
+
+              @Secured(["ROLE_MOM"])
+              def makeGoodCookies(Integer count) {
+                  (count * 2).times {
+                      ...
+                  }
+              }
+              </code></pre>
+          </section>
+
+          <section>
+              <h2>Multiple Tenants</h2>
+              <br />
+              <p>This is a very common problem...</p>
+              <br />
+
+              <ul>
+                <li> multiple users
+                <li> multiple resources
+                <li> each resource is owned by a single user
+                <li> "OWNER" can grant access to other users
+              </ul>
+              <br />
+              <br />
+              <p class="fragment">Eventually we're going to need to store data for multiple customers/tenants in the
+              same database.
+              <br />
+              <br />
+              How do we secure this?</p>
+
+          </section>
+
+
+          <section>
+              <h2>Multiple Tenants</h2>
+              <br />
+
+              <p> When "roles" vary across multiple tenants user &amp; roles aren't enough.  Roles are great for
+              implementing details like "Only the superuser can run with scissors" and "Never let Mom touch this
+              feature!"  But roles don't capture variation across resources.</p>
+
+              <p class="fragment">One approach is to use the <code>spring-security-acl</code> plugin.   The
+              <code>spring-security-acl</code> plugin provides more than just these annotations.  It's reason for
+              existence is to provide ACL support for fine grained control of access rights BUT...</p>
+
+              <p class="fragment highlighted">The annotations are applied at the service level, not on controller actions.</p>
+
+          </section>
+
+          <section>
+              <h2>Multiple Tenants</h2>
+              <br />
+              <pre><code>
+
+   @Secured(["isFullyAuthenticated()"])
+   def show(Organization org) {
+       ...
+   }
+
+
+
+              </code></pre>
+          </section>
+          <section>
+              <h2>Multiple Tenants</h2>
+              <br />
+              <pre><code>
+
+   @Secured(["isFullyAuthenticated()"])
+   @Authorized( clazz = Organization, idParam = "id", permission="VIEWER" )
+   def show(Organization org) {
+       ...
+   }
+
+
+              </code></pre>
+
+          </section>
+
+          <section>
+              <h2> When "Roles" Vary Across <br />Multiple Tenants</h2>
+              <br />
+
+              <ol start="0">
+                <li class="fragment">anonymous (no security)
+                <li class="fragment">authentication of multiple clients (bearer tokens to secure a rest api)
+                <li class="fragment">authentication of multiple users (spring security to restrict access to ctrl/action)
+                <li class="fragment">user authentication AND user authorization (spring security "authorities" to restrict acces to ctrl/action)
+                <li class="fragment">user authorization that varies across different data elements
+                    <span class="highlighted">== fine grained security</span>
+                <li class="fragment">data security (at the query level)
+              </ol>
+          </section>
+
+          <section>
+            <img class="fragment" src="images/mttt/mttt-0.png" />
+          </section>
+          <section>
+              <img src="images/Edge-of-the-Cliff-608x400.jpg" alt="edge of the cliff" />
+          </section>
+
+          <section>
+              <h2> Fine Grained Security Example</h2>
+              <br />
+              <br />
+              <ol>
+                  <li class="fragment">I (a user) can create new resources
+                  <li class="fragment">I "own" resources that I've created
+                  <li class="fragment">I am a "VIEWER" for some resources
+                  <li class="fragment">I can grant "OWNER", "VIEWER", and so on to other users
+              </ol>
+          </section>
+
+          <section>
+              don't drive drunk
+          </section>
+
+          <section>
+              <p> usage example: <span class="highlighted">class level authorization</span> </p>
+              <pre><code>
+
+
+
+    @Authorized( clazz = Project, permission="OWNER" )
+    def create() {
+        ...
+    }
+
+    @Authorized( clazz = Project, permission="OWNER" )
+    def save() {
+        ...
+    }
+
+
+
+              </code></pre>
+          </section>
+
+          <section>
+              <p> usage example: <span class="highlighted">instance level authorization</span> </p>
+              <pre><code>
+
+
+
+    @Authorized( clazz = Project, idParam = "id", permission="OWNER" )
+    def edit(Project project) {
+        render template: "edit", model: [project: project]
+    }
+
+    @Authorized( clazz = Project, idParam = "id", permission="OWNER" )
+    def update(Project project) {
+        ...
+    }
+
+
+
+              </code></pre>
+          </section>
+
+          <section>
+              <p> usage example: <span class="highlighted">list of authorized instances</span> </p>
+              <pre><code>
+
+    def list() {
+        def user = springSecurityService.currentUser
+        def projectList = authorizationService.authorizedInstances(
+                              user?.id,
+                              Project,
+                              params
+                          )
+        def projectTotal = authorizationService.authorizedInstanceCount(
+                               user?.id,
+                               Project
+                           )
+        [ projectList: projectList, projectTotal: projectTotal, ]
+    }
+
+              </code></pre>
+          </section>
+
+          <section>
+              <h2>implementation...</h2>
+              <br />
+              grails-domain-authorization plugin (in progress)
+              <br />
+              <a href="https://github.com/onetribeyoyo/grails-domain-authorization">github.com/onetribeyoyo/grails-domain-authorization</a>
+              <br />
+              <br />
+              <ul>
+                  <li class="fragment"> <code>@Authorized</code> annotation
+                  <li class="fragment"> <code>DomainAuthorizationFilters</code>
+                  <li class="fragment"> <code>AuthorizationService</code>
+                  <li class="fragment"> <code>Authorization</code> (domain object)
+                  <li class="fragment"> <code>AuthorizationTagLib</code>
+              </ul>
+        </section>
+
+        <section>
+            <h2>Questions?</h2>
+            <p>
+              <br />
+              <br />
+              <small>
+                grails-domain-authorization plugin (in progress)
+                <br />
+                <a href="https://github.com/onetribeyoyo/grails-domain-authorization">github.com/onetribeyoyo/grails-domain-authorization</a>
+                <br />
+                <br />
+                magic-task-machine (example app)
+                <br />
+                <a href="https://github.com/onetribeyoyo/mtm">github.com/onetribeyoyo/mtm</a>
+              </small>
+              <br />
+              <br />
+            </p>
+            <p>Andrew Miller</p>
+            <p>amiller@objectpartners.com</p>
+            <p>(612) 269-7369</p>
+        </section>
+
+    </div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+<script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+
+</script>
+
+</body>
+</html>
